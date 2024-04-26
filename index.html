@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentimentZen</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="overlay"></div> <!-- Semi-transparent overlay -->
+    <video autoplay muted loop id="video-bg">
+        <source src="background-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div id="video-overlay"></div>
+    <div class="content">
+        <h1>SentimentZen</h1>
+        <div class="container">
+            <canvas id="myChart"></canvas>
+            <!-- Text input option -->
+            <div class="input-container">
+                <label for="queryInput">Text Input:</label>
+                <input type="text" id="queryInput" placeholder="Enter your query">
+                <button onclick="performQuery()">Submit Query</button>
+            </div>
+
+            <div class="or-divider">OR</div>
+
+            <!-- Speech input option -->
+            <div class="input-container">
+                <button onclick="startSpeechRecognition()">Start Speech Recognition</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script> <!-- Your JavaScript file -->
+</body>
+</html>
