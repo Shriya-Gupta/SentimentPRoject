@@ -1,12 +1,46 @@
-// Function to start speech recognition
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function() {
+        const contentElement = document.querySelector('.content');
+        if (contentElement) {
+            contentElement.classList.add('fade-in');
+        } else {
+            console.error('Content element not found');
+        }
+    }, 600);
+
+    setTimeout(function() {
+        const coverContainer = document.querySelector('.cover-container');
+        if (coverContainer) {
+            coverContainer.classList.add('fade-in');
+        } else {
+            console.error('Cover container not found');
+        }
+    }, 600);
+
+    const startButton = document.getElementById("start-button");
+    if (startButton) {
+        startButton.addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            const cover = document.getElementById("cover");
+            if (cover) {
+                cover.classList.add("fade-out");
+                setTimeout(function() {
+                    window.location.href = "index.html"; // Redirect to landing page after delay
+                }, 500);
+            } else {
+                console.error('Cover element not found');
+            }
+        });
+    } else {
+        console.error('Start button not found');
+    }
+});
 function startSpeechRecognition() {
     const recognition = new webkitSpeechRecognition(); // Create a new speech recognition object
-    recognition.lang = 'en-US'; // Set language to English (United States)
+    recognition.lang = 'en-US'; 
 
-    // Start speech recognition
     recognition.start();
 
-    // Event listener for speech recognition results
     recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript; // Get the transcript of the first result
         document.getElementById('queryInput').value = transcript; // Set the input field value to the transcript
@@ -20,7 +54,26 @@ function showChart() {
     document.getElementById('myChart').style.display = 'block';
     // Show the overlay
     document.getElementById('video-overlay').style.display = 'block';
+
+    // Hide the input button and speech recognition button
+    document.getElementById('queryInput').style.display = 'none';
+    document.getElementById('submitBtn').style.display = 'none';
+    document.getElementById('speechRecognitionBtn').style.display = 'none';
+
+    // Hide the 'Text Input' label and 'OR' divider
+    document.getElementById('textInputLabel').style.display = 'none';
+    document.getElementById('orDivider').style.display = 'none';
+
+    // Get the first label (emotion) obtained from the response of the query
+    const firstLabel = document.getElementById('myChart').chart.data.labels[0]; // Accessing chart instance
+    // Display the emotion text
+    document.getElementById('emotionText').style.color = '#ff6384';
+    document.getElementById('emotionText').innerText = "You seem to be feeling: " + firstLabel;
+    
+    // Show the suggestions section
+    document.getElementById('suggestionsSection').style.display = 'block';
 }
+
 
 // Function to hide the chart and overlay
 function hideChart() {
@@ -28,6 +81,17 @@ function hideChart() {
     document.getElementById('myChart').style.display = 'none';
     // Hide the overlay
     document.getElementById('video-overlay').style.display = 'none';
+    // Show the input button and speech recognition button
+    document.getElementById('queryInput').style.display = 'block';
+    document.getElementById('submitBtn').style.display = 'block';
+    document.getElementById('speechRecognitionBtn').style.display = 'block';
+
+    // Hide the suggestions section
+    document.getElementById('suggestionsSection').style.display = 'none';
+}
+
+function redirectToPage(pageUrl) {
+    window.location.href = pageUrl;
 }
 
 // Function to perform the API query
@@ -84,6 +148,10 @@ async function performQuery() {
                     }
                 }
             }); 
+
+            // Save the chart instance for later use
+            ctx.chart = myChart;
+
             showChart(); // Show the chart after rendering
         } catch (error) {
             console.error('Error performing query:', error);
@@ -92,7 +160,6 @@ async function performQuery() {
     } else {
         // Handle case where query input is empty
         console.warn('Query input is empty');
-        // Show message to user indicating that input is required
     }
 }
 

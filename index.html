@@ -21,17 +21,29 @@
         <div class="container">
             <canvas id="myChart"></canvas>
             <!-- Text input option -->
-            <div class="input-container">
-                <label for="queryInput">Text Input:</label>
-                <input type="text" id="queryInput" placeholder="Enter your query">
-                <button onclick="performQuery()">Submit Query</button>
+            <div class="input-container" id="textInputLabel">
+                <!--<label for="queryInput">Text:</label> -->
+                <input type="text" id="queryInput" placeholder="How are you feeling?">
+                <button id="submitBtn" onclick="performQuery()">Submit</button>
             </div>
 
-            <div class="or-divider">OR</div>
+            <div class="or-divider" id="orDivider">OR</div>
 
             <!-- Speech input option -->
             <div class="input-container">
-                <button onclick="startSpeechRecognition()">Start Speech Recognition</button>
+                <button id="speechRecognitionBtn" onclick="startSpeechRecognition()">Start Speech Recognition</button>
+            </div>
+
+            <!-- Suggestions section (hidden by default) -->
+            <div id="suggestionsSection" style="display: none;">
+                <p id="emotionText"></p>
+                <p id="emotionText">Here are some suggestions based on your mood:</p>
+                <div class="suggestions-container">
+                    <button onclick="redirectToPage('Page/songs.html')" class="button"><img src="imgs/song.png" title="Songs"></button>
+                    <button onclick="redirectToPage('Page/books.html')" class="button"><img src="imgs/book.png" title="Books"></button>
+                    <button onclick="redirectToPage('Page/podcast.html')" class="button"><img src="imgs/podcast.png" title="Podcast"></button>
+                    <button onclick="redirectToPage('Page/movies.html')" class="button"><img src="imgs/movie.png" title="Movies"></button>
+                </div>
             </div>
         </div>
     </div>

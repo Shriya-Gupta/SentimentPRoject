@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Page</title>
+    <link rel="stylesheet" type="text/css" href="cover-styles.css">
+</head>
+<body>
+    <div id="overlay"></div> <!-- Semi-transparent overlay -->
+    <video autoplay muted loop id="video-bg">
+        <source src="background-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="cover-container">
+        <h1 class="cover-title">SentimentZen</h1>
+        <p class="cover-subtitle">Express yourself and let us suggest what's best for you. </p> <!--Songs, Movies, books, podcasts, we have it all!</p>-->
+        <a href="index.html" id="start-button" class="start-button">Start <span>&rarr;</span></a>
+
+    </div>
+    <script>
+        document.getElementById("start-button").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent default anchor behavior
+    document.querySelector(".cover-container").classList.add("fade-out"); // Add fade-out class to the cover container
+    setTimeout(function() {
+        window.location.href = "index.html"; // Redirect to landing page after delay
+    }, 500); // Adjust delay as needed
+});
+    </script>
+    <script src="index.js"></script> <!-- Your JavaScript file -->
+</body>
+</html>
